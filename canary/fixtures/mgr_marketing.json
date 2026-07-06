@@ -1,0 +1,44 @@
+{
+  "case_id": "persona-mgr_marketing-001",
+  "persona_module": "mgr_marketing",
+  "seniority": "manager",
+  "department": "marketing",
+  "prospect_input": {
+    "domain": "dawnridersports.com",
+    "company_name": "Dawnrider Sports",
+    "industry": "cycling and sports gear ecommerce",
+    "employee_count": 220,
+    "angles": [
+      {
+        "angle_type": "traffic_decline",
+        "angle_data": {
+          "organic_traffic_change_pct": -24,
+          "period": "last_90_days",
+          "estimated_monthly_sessions": 275000
+        }
+      },
+      {
+        "angle_type": "brand_search_signal",
+        "angle_data": {
+          "branded_search_change_pct": -16,
+          "competitor_branded_growth_pct": 8,
+          "share_of_voice_pct": 6
+        }
+      }
+    ],
+    "contact": {
+      "first_name": "Megan",
+      "title": "Marketing Manager"
+    }
+  },
+  "assertions": {
+    "tone": "campaign tactics, granular metrics, execution-oriented",
+    "word_count_range": [50, 90],
+    "subject_line_max_words": 8,
+    "sequence_length": 5,
+    "must_not_include": ["Dear Sir/Madam", "unsubscribe", "[placeholder]", "click here", "book a meeting", "schedule a call", "limited time", "act now"],
+    "framework": "campaign_tactics",
+    "max_sentences_per_paragraph": 2
+  },
+  "reference_exemplar": null
+}

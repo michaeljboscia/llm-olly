@@ -1,0 +1,6 @@
+{
+  "client": "gtm-machine",
+  "domain": "observability",
+  "project": "llm-olly",
+  "description": "LLM observability, evaluation, canary testing, drift detection"
+}

@@ -1,0 +1,13 @@
+# Bridge module dependencies
+# Install: pip install -r requirements.txt
+
+# Langfuse Python SDK v4 — observability + prompt management
+langfuse>=2.51.0
+
+# Anthropic SDK — for instrumented generation calls
+anthropic>=0.42.0
+
+# rapidfuzz — fast character-level fuzzy matching for edit distance
+rapidfuzz>=3.6.0
+
+# difflib is stdlib — no install needed (used for word-level SequenceMatcher)

@@ -1,0 +1,44 @@
+{
+  "case_id": "persona-ic_ecommerce-001",
+  "persona_module": "ic_ecommerce",
+  "seniority": "ic",
+  "department": "ecommerce",
+  "prospect_input": {
+    "domain": "mapleleafkitchen.com",
+    "company_name": "Maple Leaf Kitchen",
+    "industry": "kitchen and cookware ecommerce",
+    "employee_count": 190,
+    "angles": [
+      {
+        "angle_type": "conversion_rate_decline",
+        "angle_data": {
+          "current_cvr_pct": 1.8,
+          "industry_avg_cvr_pct": 3.0,
+          "estimated_monthly_revenue_loss_usd": 112000
+        }
+      },
+      {
+        "angle_type": "cart_abandonment",
+        "angle_data": {
+          "abandonment_rate_pct": 73,
+          "industry_avg_pct": 68,
+          "estimated_monthly_abandoned_usd": 480000
+        }
+      }
+    ],
+    "contact": {
+      "first_name": "Jordan",
+      "title": "Ecommerce Specialist"
+    }
+  },
+  "assertions": {
+    "tone": "peer-to-peer, forwardable to manager, tactical",
+    "word_count_range": [45, 100],
+    "subject_line_max_words": 8,
+    "sequence_length": 5,
+    "must_not_include": ["Dear Sir/Madam", "unsubscribe", "[placeholder]", "click here", "book a meeting", "schedule a call", "limited time", "act now"],
+    "framework": "peer_forwardable",
+    "max_sentences_per_paragraph": 2
+  },
+  "reference_exemplar": null
+}

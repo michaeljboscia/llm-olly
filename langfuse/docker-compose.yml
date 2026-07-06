@@ -1,0 +1,235 @@
+# Langfuse v3 — LLM Observability Stack
+# Deploys on server (localhost)
+# Includes its own Postgres — clean public schema, no Supabase CLI needed
+#
+# Ports:
+#   3300  - Langfuse Web UI (LAN)
+#   3330  - Langfuse Worker (localhost only)
+#   54332 - Postgres (LAN — for pgAdmin, psql, monitoring schema)
+#   8124  - ClickHouse HTTP (localhost only)
+#   9002  - ClickHouse Native (localhost only)
+#   6380  - Redis (localhost only)
+#   9090  - MinIO S3 API (LAN — needed for media URLs)
+#   9095  - MinIO Console (localhost only)
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg15
+    container_name: llm-olly-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: langfuse
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: langfuse
+    ports:
+      - "54332:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./init-monitoring-db.sh:/docker-entrypoint-initdb.d/10-monitoring-db.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U langfuse -d langfuse"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    networks:
+      - llm-olly
+
+  langfuse-worker:
+    image: langfuse/langfuse-worker:3.160.0
+    container_name: llm-olly-langfuse-worker
+    restart: always
+    depends_on: &langfuse-deps
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:3330:3030"
+    environment: &langfuse-env
+      # Postgres — dedicated instance in this compose
+      DATABASE_URL: postgresql://langfuse:${POSTGRES_PASSWORD}@postgres:5432/langfuse
+      DIRECT_URL: postgresql://langfuse:${POSTGRES_PASSWORD}@postgres:5432/langfuse
+      # Auth
+      NEXTAUTH_URL: http://localhost:3300
+      SALT: ${SALT}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      # Telemetry
+      TELEMETRY_ENABLED: "false"
+      # ClickHouse
+      CLICKHOUSE_MIGRATION_URL: clickhouse://clickhouse:9000
+      CLICKHOUSE_URL: http://clickhouse:8123
+      CLICKHOUSE_USER: ${CLICKHOUSE_USER}
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD}
+      CLICKHOUSE_CLUSTER_ENABLED: "false"
+      # Redis
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      REDIS_AUTH: ${REDIS_AUTH}
+      # MinIO (S3-compatible storage)
+      LANGFUSE_S3_EVENT_UPLOAD_BUCKET: langfuse
+      LANGFUSE_S3_EVENT_UPLOAD_REGION: auto
+      LANGFUSE_S3_EVENT_UPLOAD_ACCESS_KEY_ID: ${MINIO_USER}
+      LANGFUSE_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY: ${MINIO_PASSWORD}
+      LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT: http://minio:9000
+      LANGFUSE_S3_EVENT_UPLOAD_FORCE_PATH_STYLE: "true"
+      LANGFUSE_S3_MEDIA_UPLOAD_BUCKET: langfuse-media
+      LANGFUSE_S3_MEDIA_UPLOAD_REGION: auto
+      LANGFUSE_S3_MEDIA_UPLOAD_ACCESS_KEY_ID: ${MINIO_USER}
+      LANGFUSE_S3_MEDIA_UPLOAD_SECRET_ACCESS_KEY: ${MINIO_PASSWORD}
+      LANGFUSE_S3_MEDIA_UPLOAD_ENDPOINT: http://minio:9000
+      LANGFUSE_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE: "true"
+      # Node memory
+      NODE_OPTIONS: "--max-old-space-size=2048"
+      # Init provisioning (user, org, project, API keys)
+      LANGFUSE_INIT_ORG_NAME: ${LANGFUSE_INIT_ORG_NAME:-}
+      LANGFUSE_INIT_PROJECT_NAME: ${LANGFUSE_INIT_PROJECT_NAME:-}
+      LANGFUSE_INIT_PROJECT_PUBLIC_KEY: ${LANGFUSE_INIT_PROJECT_PUBLIC_KEY:-}
+      LANGFUSE_INIT_PROJECT_SECRET_KEY: ${LANGFUSE_INIT_PROJECT_SECRET_KEY:-}
+      LANGFUSE_INIT_USER_EMAIL: ${LANGFUSE_INIT_USER_EMAIL:-}
+      LANGFUSE_INIT_USER_NAME: ${LANGFUSE_INIT_USER_NAME:-}
+      LANGFUSE_INIT_USER_PASSWORD: ${LANGFUSE_INIT_USER_PASSWORD:-}
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 2G
+        reservations:
+          cpus: "0.5"
+          memory: 512M
+    networks:
+      - llm-olly
+
+  langfuse-web:
+    image: langfuse/langfuse:3.160.0
+    container_name: llm-olly-langfuse-web
+    restart: always
+    depends_on: *langfuse-deps
+    ports:
+      - "3300:3000"
+    environment:
+      <<: *langfuse-env
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 2G
+        reservations:
+          cpus: "0.5"
+          memory: 512M
+    networks:
+      - llm-olly
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.3
+    container_name: llm-olly-clickhouse
+    restart: always
+    user: "101:101"
+    environment:
+      CLICKHOUSE_DB: default
+      CLICKHOUSE_USER: ${CLICKHOUSE_USER}
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD}
+    volumes:
+      - ch_data:/var/lib/clickhouse
+      - ch_logs:/var/log/clickhouse-server
+    ports:
+      - "127.0.0.1:8124:8123"
+      - "127.0.0.1:9002:9000"
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:8123/ping || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 2G
+        reservations:
+          cpus: "0.5"
+          memory: 512M
+    networks:
+      - llm-olly
+
+  minio:
+    image: cgr.dev/chainguard/minio:latest
+    container_name: llm-olly-minio
+    restart: always
+    entrypoint: sh
+    command: >
+      -c 'mkdir -p /data/langfuse /data/langfuse-media && minio server --address ":9000" --console-address ":9001" /data'
+    environment:
+      MINIO_ROOT_USER: ${MINIO_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_PASSWORD}
+    ports:
+      - "9090:9000"
+      - "127.0.0.1:9095:9001"
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 1s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+    networks:
+      - llm-olly
+
+  redis:
+    image: redis:7-alpine
+    container_name: llm-olly-redis
+    restart: always
+    command: --requirepass ${REDIS_AUTH} --maxmemory-policy noeviction
+    ports:
+      - "127.0.0.1:6380:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_AUTH}", "ping"]
+      interval: 3s
+      timeout: 10s
+      retries: 10
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+    networks:
+      - llm-olly
+
+volumes:
+  pg_data:
+    name: llm-olly-postgres-data
+  ch_data:
+    name: llm-olly-clickhouse-data
+  ch_logs:
+    name: llm-olly-clickhouse-logs
+  minio_data:
+    name: llm-olly-minio-data
+  redis_data:
+    name: llm-olly-redis-data
+
+networks:
+  llm-olly:
+    name: llm-olly
+    driver: bridge

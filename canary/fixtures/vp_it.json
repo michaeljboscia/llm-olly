@@ -1,0 +1,45 @@
+{
+  "case_id": "persona-vp_it-001",
+  "persona_module": "vp_it",
+  "seniority": "vp",
+  "department": "it",
+  "prospect_input": {
+    "domain": "solsticefoods.com",
+    "company_name": "Solstice Foods Direct",
+    "industry": "specialty food ecommerce",
+    "employee_count": 230,
+    "angles": [
+      {
+        "angle_type": "core_web_vitals",
+        "angle_data": {
+          "lcp_ms": 3500,
+          "fid_ms": 195,
+          "cls": 0.24,
+          "mobile_score": 44
+        }
+      },
+      {
+        "angle_type": "tech_stack_signal",
+        "angle_data": {
+          "platform": "Shopify Plus",
+          "known_issues": ["excessive third-party app scripts", "unoptimized Liquid templates"],
+          "page_weight_kb": 3800
+        }
+      }
+    ],
+    "contact": {
+      "first_name": "Kevin",
+      "title": "VP of IT"
+    }
+  },
+  "assertions": {
+    "tone": "technical, infrastructure-aware, solution-oriented",
+    "word_count_range": [35, 65],
+    "subject_line_max_words": 8,
+    "sequence_length": 4,
+    "must_not_include": ["Dear Sir/Madam", "unsubscribe", "[placeholder]", "click here", "book a meeting", "schedule a call", "limited time", "act now"],
+    "framework": "technical_observation",
+    "max_sentences_per_paragraph": 2
+  },
+  "reference_exemplar": null
+}

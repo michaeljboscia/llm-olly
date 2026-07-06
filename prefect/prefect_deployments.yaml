@@ -1,0 +1,57 @@
+# Prefect 2 Deployment Definitions — LLM Observability
+#
+# Apply with:
+#   prefect deployment apply prefect_deployments.yaml
+#
+# Requires PREFECT_API_URL=http://prefect-server:4200/api
+
+deployments:
+  # ---- Daily canary heartbeat (2 AM ET) ----
+  - name: canary-heartbeat-daily
+    entrypoint: canary_heartbeat.py:canary_heartbeat
+    work_pool_name: default-agent-pool
+    schedule:
+      cron: "0 2 * * *"
+      timezone: "America/New_York"
+    tags:
+      - llm-olly
+      - canary
+      - daily
+    parameters: {}
+    description: >
+      Daily canary heartbeat — generates one email per persona (22 total),
+      runs deterministic + LLM-as-judge checks, alerts Slack if any persona
+      pass rate drops below 80%.
+
+  # ---- Weekly drift report (Monday 8 AM ET) ----
+  - name: drift-report-weekly
+    entrypoint: drift_report.py:drift_report
+    work_pool_name: default-agent-pool
+    schedule:
+      cron: "0 8 * * 1"
+      timezone: "America/New_York"
+    tags:
+      - llm-olly
+      - drift
+      - weekly
+    parameters: {}
+    description: >
+      Weekly drift report — refreshes persona_health_7d and canary_health_7d
+      materialized views, checks editing effort / subject change / CTA change /
+      canary pass rate thresholds, sends Slack summary.
+
+  # ---- Model change trigger (manual) ----
+  - name: model-change-trigger
+    entrypoint: model_change_trigger.py:model_change_trigger
+    work_pool_name: default-agent-pool
+    tags:
+      - llm-olly
+      - canary
+      - model-change
+    parameters:
+      model_version: "claude-sonnet-4-20250514"
+    description: >
+      Full canary suite evaluation for a new model version. Runs 44-66 cases
+      with deterministic + embedding + LLM-as-judge checks, compares against
+      the last run on a different model, blocks if pass rate drops >10%.
+      Triggered manually — pass model_version as a parameter.

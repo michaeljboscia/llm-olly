@@ -1,0 +1,44 @@
+{
+  "case_id": "persona-c_suite_marketing-001",
+  "persona_module": "c_suite_marketing",
+  "seniority": "c_suite",
+  "department": "marketing",
+  "prospect_input": {
+    "domain": "lunabeauty.com",
+    "company_name": "Luna Beauty Labs",
+    "industry": "beauty and skincare ecommerce",
+    "employee_count": 275,
+    "angles": [
+      {
+        "angle_type": "traffic_decline",
+        "angle_data": {
+          "organic_traffic_change_pct": -33,
+          "period": "last_90_days",
+          "estimated_monthly_sessions": 420000
+        }
+      },
+      {
+        "angle_type": "brand_search_signal",
+        "angle_data": {
+          "branded_search_change_pct": -18,
+          "competitor_branded_growth_pct": 12,
+          "share_of_voice_pct": 14
+        }
+      }
+    ],
+    "contact": {
+      "first_name": "Serena",
+      "title": "CMO"
+    }
+  },
+  "assertions": {
+    "tone": "marketing metrics, brand impact framing, executive brevity",
+    "word_count_range": [25, 50],
+    "subject_line_max_words": 3,
+    "sequence_length": 5,
+    "must_not_include": ["Dear Sir/Madam", "unsubscribe", "[placeholder]", "click here", "book a meeting", "schedule a call", "limited time", "act now"],
+    "framework": "brand_impact",
+    "max_sentences_per_paragraph": 2
+  },
+  "reference_exemplar": null
+}

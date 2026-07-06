@@ -1,0 +1,44 @@
+{
+  "case_id": "persona-mgr_ecommerce-001",
+  "persona_module": "mgr_ecommerce",
+  "seniority": "manager",
+  "department": "ecommerce",
+  "prospect_input": {
+    "domain": "brightleafbotanicals.com",
+    "company_name": "Brightleaf Botanicals",
+    "industry": "plant and garden ecommerce",
+    "employee_count": 160,
+    "angles": [
+      {
+        "angle_type": "conversion_rate_decline",
+        "angle_data": {
+          "current_cvr_pct": 1.6,
+          "industry_avg_cvr_pct": 2.7,
+          "estimated_monthly_revenue_loss_usd": 98000
+        }
+      },
+      {
+        "angle_type": "cart_abandonment",
+        "angle_data": {
+          "abandonment_rate_pct": 74,
+          "industry_avg_pct": 69,
+          "estimated_monthly_abandoned_usd": 560000
+        }
+      }
+    ],
+    "contact": {
+      "first_name": "Emily",
+      "title": "Ecommerce Manager"
+    }
+  },
+  "assertions": {
+    "tone": "tactical, campaign-level, hands-on operational",
+    "word_count_range": [50, 90],
+    "subject_line_max_words": 8,
+    "sequence_length": 5,
+    "must_not_include": ["Dear Sir/Madam", "unsubscribe", "[placeholder]", "click here", "book a meeting", "schedule a call", "limited time", "act now"],
+    "framework": "tactical_operational",
+    "max_sentences_per_paragraph": 2
+  },
+  "reference_exemplar": null
+}

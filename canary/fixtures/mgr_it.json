@@ -1,0 +1,45 @@
+{
+  "case_id": "persona-mgr_it-001",
+  "persona_module": "mgr_it",
+  "seniority": "manager",
+  "department": "it",
+  "prospect_input": {
+    "domain": "clearwaterfitness.com",
+    "company_name": "Clearwater Fitness",
+    "industry": "fitness equipment ecommerce",
+    "employee_count": 175,
+    "angles": [
+      {
+        "angle_type": "core_web_vitals",
+        "angle_data": {
+          "lcp_ms": 4400,
+          "fid_ms": 200,
+          "cls": 0.27,
+          "mobile_score": 36
+        }
+      },
+      {
+        "angle_type": "tech_stack_signal",
+        "angle_data": {
+          "platform": "WooCommerce",
+          "known_issues": ["no HTTP/2 push", "blocking database queries on product pages"],
+          "page_weight_kb": 4100
+        }
+      }
+    ],
+    "contact": {
+      "first_name": "Andre",
+      "title": "IT Manager"
+    }
+  },
+  "assertions": {
+    "tone": "technical, implementation-focused, infrastructure diagnostic",
+    "word_count_range": [50, 90],
+    "subject_line_max_words": 8,
+    "sequence_length": 4,
+    "must_not_include": ["Dear Sir/Madam", "unsubscribe", "[placeholder]", "click here", "book a meeting", "schedule a call", "limited time", "act now"],
+    "framework": "technical_observation",
+    "max_sentences_per_paragraph": 2
+  },
+  "reference_exemplar": null
+}

@@ -1,0 +1,45 @@
+{
+  "case_id": "persona-mgr_engineering-001",
+  "persona_module": "mgr_engineering",
+  "seniority": "manager",
+  "department": "engineering",
+  "prospect_input": {
+    "domain": "ridgelineaudio.com",
+    "company_name": "Ridgeline Audio",
+    "industry": "consumer electronics ecommerce",
+    "employee_count": 350,
+    "angles": [
+      {
+        "angle_type": "core_web_vitals",
+        "angle_data": {
+          "lcp_ms": 3600,
+          "fid_ms": 160,
+          "cls": 0.18,
+          "mobile_score": 46
+        }
+      },
+      {
+        "angle_type": "tech_stack_signal",
+        "angle_data": {
+          "platform": "Shopify",
+          "known_issues": ["theme bloat from unused sections", "excessive app script injection"],
+          "page_weight_kb": 3400
+        }
+      }
+    ],
+    "contact": {
+      "first_name": "Carlos",
+      "title": "Engineering Manager"
+    }
+  },
+  "assertions": {
+    "tone": "direct technical, scoped problems, implementation-aware",
+    "word_count_range": [50, 90],
+    "subject_line_max_words": 8,
+    "sequence_length": 4,
+    "must_not_include": ["Dear Sir/Madam", "unsubscribe", "[placeholder]", "click here", "book a meeting", "schedule a call", "limited time", "act now"],
+    "framework": "technical_scoped",
+    "max_sentences_per_paragraph": 2
+  },
+  "reference_exemplar": null
+}

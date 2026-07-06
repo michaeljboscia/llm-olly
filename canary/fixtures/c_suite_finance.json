@@ -1,0 +1,44 @@
+{
+  "case_id": "persona-c_suite_finance-001",
+  "persona_module": "c_suite_finance",
+  "seniority": "c_suite",
+  "department": "finance",
+  "prospect_input": {
+    "domain": "northernthread.com",
+    "company_name": "Northern Thread Co",
+    "industry": "apparel ecommerce",
+    "employee_count": 210,
+    "angles": [
+      {
+        "angle_type": "conversion_rate_decline",
+        "angle_data": {
+          "current_cvr_pct": 1.4,
+          "industry_avg_cvr_pct": 2.8,
+          "estimated_monthly_revenue_loss_usd": 142000
+        }
+      },
+      {
+        "angle_type": "cart_abandonment",
+        "angle_data": {
+          "abandonment_rate_pct": 78,
+          "industry_avg_pct": 69,
+          "estimated_monthly_abandoned_usd": 890000
+        }
+      }
+    ],
+    "contact": {
+      "first_name": "Diana",
+      "title": "CFO"
+    }
+  },
+  "assertions": {
+    "tone": "ROI/cost-benefit frame, financial variance language, executive brevity",
+    "word_count_range": [25, 50],
+    "subject_line_max_words": 3,
+    "sequence_length": 5,
+    "must_not_include": ["Dear Sir/Madam", "unsubscribe", "[placeholder]", "click here", "book a meeting", "schedule a call", "limited time", "act now"],
+    "framework": "financial_impact",
+    "max_sentences_per_paragraph": 2
+  },
+  "reference_exemplar": null
+}

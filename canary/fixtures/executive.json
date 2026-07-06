@@ -1,0 +1,45 @@
+{
+  "case_id": "persona-executive-001",
+  "persona_module": "executive",
+  "seniority": "c_suite",
+  "department": "operations",
+  "prospect_input": {
+    "domain": "peakvista.com",
+    "company_name": "Peak Vista Outdoors",
+    "industry": "outdoor sporting goods ecommerce",
+    "employee_count": 320,
+    "angles": [
+      {
+        "angle_type": "core_web_vitals",
+        "angle_data": {
+          "lcp_ms": 4200,
+          "fid_ms": 180,
+          "cls": 0.28,
+          "mobile_score": 38
+        }
+      },
+      {
+        "angle_type": "traffic_decline",
+        "angle_data": {
+          "organic_traffic_change_pct": -27,
+          "period": "last_90_days",
+          "estimated_monthly_sessions": 185000
+        }
+      }
+    ],
+    "contact": {
+      "first_name": "Marcus",
+      "title": "CEO"
+    }
+  },
+  "assertions": {
+    "tone": "challenger framework, business consequence, executive brevity",
+    "word_count_range": [25, 50],
+    "subject_line_max_words": 3,
+    "sequence_length": 5,
+    "must_not_include": ["Dear Sir/Madam", "unsubscribe", "[placeholder]", "click here", "book a meeting", "schedule a call", "limited time", "act now"],
+    "framework": "challenger",
+    "max_sentences_per_paragraph": 2
+  },
+  "reference_exemplar": null
+}

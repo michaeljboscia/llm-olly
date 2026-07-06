@@ -1,0 +1,45 @@
+{
+  "case_id": "persona-ic_engineering-001",
+  "persona_module": "ic_engineering",
+  "seniority": "ic",
+  "department": "engineering",
+  "prospect_input": {
+    "domain": "novatrailgear.com",
+    "company_name": "Nova Trail Gear",
+    "industry": "hiking and trail gear ecommerce",
+    "employee_count": 155,
+    "angles": [
+      {
+        "angle_type": "core_web_vitals",
+        "angle_data": {
+          "lcp_ms": 3200,
+          "fid_ms": 140,
+          "cls": 0.15,
+          "mobile_score": 51
+        }
+      },
+      {
+        "angle_type": "tech_stack_signal",
+        "angle_data": {
+          "platform": "Shopify",
+          "known_issues": ["render-blocking third-party analytics", "unoptimized hero images"],
+          "page_weight_kb": 3100
+        }
+      }
+    ],
+    "contact": {
+      "first_name": "Sam",
+      "title": "Frontend Developer"
+    }
+  },
+  "assertions": {
+    "tone": "specific tactical, code-level awareness, developer peer",
+    "word_count_range": [45, 100],
+    "subject_line_max_words": 8,
+    "sequence_length": 4,
+    "must_not_include": ["Dear Sir/Madam", "unsubscribe", "[placeholder]", "click here", "book a meeting", "schedule a call", "limited time", "act now"],
+    "framework": "tactical_technical",
+    "max_sentences_per_paragraph": 2
+  },
+  "reference_exemplar": null
+}

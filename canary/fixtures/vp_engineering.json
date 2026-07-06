@@ -1,0 +1,45 @@
+{
+  "case_id": "persona-vp_engineering-001",
+  "persona_module": "vp_engineering",
+  "seniority": "vp",
+  "department": "engineering",
+  "prospect_input": {
+    "domain": "velocityparts.com",
+    "company_name": "Velocity Auto Parts",
+    "industry": "automotive parts ecommerce",
+    "employee_count": 410,
+    "angles": [
+      {
+        "angle_type": "core_web_vitals",
+        "angle_data": {
+          "lcp_ms": 4800,
+          "fid_ms": 250,
+          "cls": 0.32,
+          "mobile_score": 29
+        }
+      },
+      {
+        "angle_type": "tech_stack_signal",
+        "angle_data": {
+          "platform": "WooCommerce",
+          "known_issues": ["unminified CSS bundles", "legacy jQuery dependencies"],
+          "page_weight_kb": 5100
+        }
+      }
+    ],
+    "contact": {
+      "first_name": "Derek",
+      "title": "VP of Engineering"
+    }
+  },
+  "assertions": {
+    "tone": "softened peer observation, technical credibility, hedge language",
+    "word_count_range": [35, 65],
+    "subject_line_max_words": 8,
+    "sequence_length": 4,
+    "must_not_include": ["Dear Sir/Madam", "unsubscribe", "[placeholder]", "click here", "book a meeting", "schedule a call", "limited time", "act now"],
+    "framework": "peer_observation",
+    "max_sentences_per_paragraph": 2
+  },
+  "reference_exemplar": null
+}

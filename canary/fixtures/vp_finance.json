@@ -1,0 +1,44 @@
+{
+  "case_id": "persona-vp_finance-001",
+  "persona_module": "vp_finance",
+  "seniority": "vp",
+  "department": "finance",
+  "prospect_input": {
+    "domain": "harborcraft.com",
+    "company_name": "Harbor Craft Supply",
+    "industry": "craft and hobby supplies ecommerce",
+    "employee_count": 195,
+    "angles": [
+      {
+        "angle_type": "conversion_rate_decline",
+        "angle_data": {
+          "current_cvr_pct": 1.9,
+          "industry_avg_cvr_pct": 3.2,
+          "estimated_monthly_revenue_loss_usd": 165000
+        }
+      },
+      {
+        "angle_type": "traffic_decline",
+        "angle_data": {
+          "organic_traffic_change_pct": -22,
+          "period": "last_90_days",
+          "estimated_monthly_sessions": 290000
+        }
+      }
+    ],
+    "contact": {
+      "first_name": "Natalie",
+      "title": "VP of Finance"
+    }
+  },
+  "assertions": {
+    "tone": "financial frame, cost-benefit language, ROI emphasis",
+    "word_count_range": [35, 65],
+    "subject_line_max_words": 8,
+    "sequence_length": 5,
+    "must_not_include": ["Dear Sir/Madam", "unsubscribe", "[placeholder]", "click here", "book a meeting", "schedule a call", "limited time", "act now"],
+    "framework": "financial_impact",
+    "max_sentences_per_paragraph": 2
+  },
+  "reference_exemplar": null
+}

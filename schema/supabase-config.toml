@@ -1,0 +1,49 @@
+# Supabase Local Instance — LLM Observability
+# SEPARATE instance from the GTM Machine Supabase (ports 54321-54323)
+# Purpose: Dedicated Postgres for Langfuse + monitoring tables
+#
+# Deploy:
+#   1. SSH to server
+#   2. mkdir -p ~/llm-olly-supabase && cd ~/llm-olly-supabase
+#   3. ~/.local/bin/supabase init
+#   4. Replace ~/llm-olly-supabase/supabase/config.toml with this file
+#   5. ~/.local/bin/supabase start
+
+# Unique project ID to avoid collision with existing "supabase" project
+project_id = "llm-olly"
+
+[api]
+port = 54331
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54332
+shadow_port = 54340
+major_version = 15
+
+[studio]
+port = 54333
+
+# Disable services we don't need — this is a Postgres-only instance
+[inbucket]
+port = 54334
+enabled = false
+
+[storage]
+enabled = false
+
+[auth]
+enabled = false
+site_url = "http://localhost:3000"
+
+[auth.email]
+enable_signup = false
+enable_confirmations = false
+
+[edge_runtime]
+enabled = false
+
+[analytics]
+enabled = false

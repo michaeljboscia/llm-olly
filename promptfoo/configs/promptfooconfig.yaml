@@ -1,0 +1,177 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+description: "Cold Email Persona Evaluation - 22 Personas x Canary Fixtures"
+
+# --- Prompt function assembles base + persona module dynamically ---
+prompts:
+  - file://generate_prompt.js
+
+# --- Generation provider (the model under test) ---
+providers:
+  - id: anthropic:messages:claude-sonnet-4-20250514
+    label: "Claude Sonnet 4"
+    config:
+      temperature: 0.7
+      max_tokens: 4096
+
+# --- Grading provider for LLM-judge assertions ---
+defaultTest:
+  options:
+    provider:
+      id: anthropic:messages:claude-sonnet-4-20250514
+      config:
+        temperature: 0
+        max_tokens: 1024
+  assert:
+    # =============================================
+    # Layer 1: Deterministic checks (free, instant)
+    # =============================================
+    - type: javascript
+      value: file://assertions/deterministic_checks.js
+
+    - type: javascript
+      value: file://assertions/no_hallucinated_numbers.js
+
+    - type: javascript
+      value: file://assertions/cross_email_checks.js
+
+    # Banned CTA / spam phrases
+    - type: not-icontains-any
+      value:
+        - "Dear Sir/Madam"
+        - "unsubscribe"
+        - "[placeholder]"
+        - "click here"
+        - "book a meeting"
+        - "schedule a call"
+        - "limited time"
+        - "act now"
+        - "sign up now"
+        - "buy now"
+        - "free trial"
+
+    # Cost gate per generation call
+    - type: cost
+      threshold: 0.05
+
+    # =============================================
+    # Layer 2: LLM-as-judge rubrics (binary pass/fail)
+    # =============================================
+    - type: llm-rubric
+      value: |
+        Evaluate PERSONA FIDELITY. The output is a cold email sequence generated
+        for the persona "{{persona}}". Does every email consistently reflect the
+        priorities, vocabulary, and concerns appropriate for that buyer persona?
+        A {{seniority}}-level {{department}} buyer should see language that matches
+        their daily reality. Score 1.0 if the persona is consistently maintained,
+        0.0 if any email breaks character.
+      weight: 3
+      metric: persona_fidelity
+      threshold: 0.7
+
+    - type: llm-rubric
+      value: |
+        Evaluate TONE MATCH. The expected tone is: "{{tone}}".
+        Does the email sequence match this tone throughout? Check for appropriate
+        formality level, technical depth, and communication style. Score 1.0 if
+        tone is consistent and correct, 0.0 if it drifts or mismatches.
+      weight: 2
+      metric: tone_match
+      threshold: 0.7
+
+    - type: llm-rubric
+      value: |
+        Check ANTI-PATTERN COMPLIANCE. The email sequence must NOT contain:
+        - Fake urgency ("limited time", "act now", "don't miss out")
+        - Superlatives ("best", "leading", "world-class", "#1")
+        - Presumptuous familiarity ("I know you're busy", "I'm sure you agree")
+        - Generic value propositions with no prospect-specific data
+        - Multiple CTAs per email
+        - Placeholder brackets like [Company] or [Name]
+        - "Dear Sir/Madam" or equivalent generic salutations
+        Score 1.0 if compliant, 0.0 if any anti-pattern is present.
+      weight: 3
+      metric: anti_pattern_compliance
+      threshold: 1.0
+
+# --- Derived composite metric ---
+derivedMetrics:
+  - name: "overall_quality"
+    value: "(persona_fidelity * 0.4 + tone_match * 0.3 + anti_pattern_compliance * 0.3)"
+
+# --- Test matrix: one entry per canary fixture ---
+tests:
+  - vars:
+      persona: "executive"
+      fixture: file://../../canary/fixtures/executive.json
+  - vars:
+      persona: "c_suite_finance"
+      fixture: file://../../canary/fixtures/c_suite_finance.json
+  - vars:
+      persona: "c_suite_it"
+      fixture: file://../../canary/fixtures/c_suite_it.json
+  - vars:
+      persona: "c_suite_marketing"
+      fixture: file://../../canary/fixtures/c_suite_marketing.json
+  - vars:
+      persona: "vp_ecommerce"
+      fixture: file://../../canary/fixtures/vp_ecommerce.json
+  - vars:
+      persona: "vp_engineering"
+      fixture: file://../../canary/fixtures/vp_engineering.json
+  - vars:
+      persona: "vp_finance"
+      fixture: file://../../canary/fixtures/vp_finance.json
+  - vars:
+      persona: "vp_it"
+      fixture: file://../../canary/fixtures/vp_it.json
+  - vars:
+      persona: "vp_marketing"
+      fixture: file://../../canary/fixtures/vp_marketing.json
+  - vars:
+      persona: "dir_ecommerce"
+      fixture: file://../../canary/fixtures/dir_ecommerce.json
+  - vars:
+      persona: "dir_engineering"
+      fixture: file://../../canary/fixtures/dir_engineering.json
+  - vars:
+      persona: "dir_finance"
+      fixture: file://../../canary/fixtures/dir_finance.json
+  - vars:
+      persona: "dir_it"
+      fixture: file://../../canary/fixtures/dir_it.json
+  - vars:
+      persona: "dir_marketing"
+      fixture: file://../../canary/fixtures/dir_marketing.json
+  - vars:
+      persona: "mgr_ecommerce"
+      fixture: file://../../canary/fixtures/mgr_ecommerce.json
+  - vars:
+      persona: "mgr_engineering"
+      fixture: file://../../canary/fixtures/mgr_engineering.json
+  - vars:
+      persona: "mgr_it"
+      fixture: file://../../canary/fixtures/mgr_it.json
+  - vars:
+      persona: "mgr_marketing"
+      fixture: file://../../canary/fixtures/mgr_marketing.json
+  - vars:
+      persona: "ic_ecommerce"
+      fixture: file://../../canary/fixtures/ic_ecommerce.json
+  - vars:
+      persona: "ic_engineering"
+      fixture: file://../../canary/fixtures/ic_engineering.json
+  - vars:
+      persona: "ic_it"
+      fixture: file://../../canary/fixtures/ic_it.json
+  - vars:
+      persona: "ic_marketing"
+      fixture: file://../../canary/fixtures/ic_marketing.json
+
+# --- Execution settings ---
+commandLineOptions:
+  maxConcurrency: 5
+
+# --- Environment ---
+env:
+  PROMPTFOO_DISABLE_TELEMETRY: "1"
+  PROMPTFOO_SELF_HOSTED: "1"

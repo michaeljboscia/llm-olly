@@ -1,0 +1,44 @@
+{
+  "case_id": "persona-dir_finance-001",
+  "persona_module": "dir_finance",
+  "seniority": "director",
+  "department": "finance",
+  "prospect_input": {
+    "domain": "ironbridgetools.com",
+    "company_name": "Iron Bridge Tools",
+    "industry": "industrial tools ecommerce",
+    "employee_count": 310,
+    "angles": [
+      {
+        "angle_type": "cart_abandonment",
+        "angle_data": {
+          "abandonment_rate_pct": 76,
+          "industry_avg_pct": 68,
+          "estimated_monthly_abandoned_usd": 720000
+        }
+      },
+      {
+        "angle_type": "conversion_rate_decline",
+        "angle_data": {
+          "current_cvr_pct": 2.1,
+          "industry_avg_cvr_pct": 3.4,
+          "estimated_monthly_revenue_loss_usd": 195000
+        }
+      }
+    ],
+    "contact": {
+      "first_name": "Catherine",
+      "title": "Director of Finance"
+    }
+  },
+  "assertions": {
+    "tone": "financial frame, cost-impact, margin-aware",
+    "word_count_range": [40, 75],
+    "subject_line_max_words": 8,
+    "sequence_length": 5,
+    "must_not_include": ["Dear Sir/Madam", "unsubscribe", "[placeholder]", "click here", "book a meeting", "schedule a call", "limited time", "act now"],
+    "framework": "financial_impact",
+    "max_sentences_per_paragraph": 2
+  },
+  "reference_exemplar": null
+}

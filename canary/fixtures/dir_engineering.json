@@ -1,0 +1,45 @@
+{
+  "case_id": "persona-dir_engineering-001",
+  "persona_module": "dir_engineering",
+  "seniority": "director",
+  "department": "engineering",
+  "prospect_input": {
+    "domain": "precisionoptics.com",
+    "company_name": "Precision Optics Direct",
+    "industry": "optical equipment ecommerce",
+    "employee_count": 260,
+    "angles": [
+      {
+        "angle_type": "core_web_vitals",
+        "angle_data": {
+          "lcp_ms": 3900,
+          "fid_ms": 175,
+          "cls": 0.21,
+          "mobile_score": 41
+        }
+      },
+      {
+        "angle_type": "tech_stack_signal",
+        "angle_data": {
+          "platform": "BigCommerce",
+          "known_issues": ["synchronous third-party tag loading", "uncompressed product images"],
+          "page_weight_kb": 4600
+        }
+      }
+    ],
+    "contact": {
+      "first_name": "Priya",
+      "title": "Director of Engineering"
+    }
+  },
+  "assertions": {
+    "tone": "operational risk frame, softened, technical specificity",
+    "word_count_range": [40, 75],
+    "subject_line_max_words": 8,
+    "sequence_length": 5,
+    "must_not_include": ["Dear Sir/Madam", "unsubscribe", "[placeholder]", "click here", "book a meeting", "schedule a call", "limited time", "act now"],
+    "framework": "operational_risk",
+    "max_sentences_per_paragraph": 2
+  },
+  "reference_exemplar": null
+}

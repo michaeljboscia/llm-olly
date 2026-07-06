@@ -1,0 +1,41 @@
+# Promptfoo — LLM Evaluation Platform
+# Deploys on server (localhost)
+#
+# Port: 3200 — Promptfoo Web UI (LAN)
+
+services:
+  promptfoo:
+    image: ghcr.io/promptfoo/promptfoo:latest
+    container_name: llm-olly-promptfoo
+    restart: unless-stopped
+    ports:
+      - "3200:3000"
+    volumes:
+      - promptfoo_data:/home/promptfoo/.promptfoo
+      - ./configs:/app/configs:ro
+    environment:
+      # Disable telemetry
+      PROMPTFOO_DISABLE_TELEMETRY: "1"
+      PROMPTFOO_SELF_HOSTED: "1"
+      # Langfuse integration (prompt fetching)
+      LANGFUSE_PUBLIC_KEY: ${LANGFUSE_PUBLIC_KEY:-}
+      LANGFUSE_SECRET_KEY: ${LANGFUSE_SECRET_KEY:-}
+      LANGFUSE_HOST: http://localhost:3300
+      # Anthropic API
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G
+    networks:
+      - llm-olly
+
+volumes:
+  promptfoo_data:
+    name: llm-olly-promptfoo-data
+
+networks:
+  llm-olly:
+    external: true
+    name: llm-olly

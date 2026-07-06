@@ -1,0 +1,45 @@
+{
+  "case_id": "persona-c_suite_it-001",
+  "persona_module": "c_suite_it",
+  "seniority": "c_suite",
+  "department": "it",
+  "prospect_input": {
+    "domain": "grovemarket.com",
+    "company_name": "Grove Market",
+    "industry": "organic grocery ecommerce",
+    "employee_count": 180,
+    "angles": [
+      {
+        "angle_type": "core_web_vitals",
+        "angle_data": {
+          "lcp_ms": 3800,
+          "fid_ms": 210,
+          "cls": 0.19,
+          "mobile_score": 42
+        }
+      },
+      {
+        "angle_type": "tech_stack_signal",
+        "angle_data": {
+          "platform": "Magento 2.4",
+          "known_issues": ["unoptimized image pipeline", "render-blocking JS bundles"],
+          "page_weight_kb": 4200
+        }
+      }
+    ],
+    "contact": {
+      "first_name": "Raj",
+      "title": "CTO"
+    }
+  },
+  "assertions": {
+    "tone": "peer-to-peer, softened observation, hedge language, technical credibility",
+    "word_count_range": [25, 50],
+    "subject_line_max_words": 3,
+    "sequence_length": 4,
+    "must_not_include": ["Dear Sir/Madam", "unsubscribe", "[placeholder]", "click here", "book a meeting", "schedule a call", "limited time", "act now"],
+    "framework": "peer_observation",
+    "max_sentences_per_paragraph": 2
+  },
+  "reference_exemplar": null
+}

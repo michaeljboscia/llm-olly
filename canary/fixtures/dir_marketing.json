@@ -1,0 +1,44 @@
+{
+  "case_id": "persona-dir_marketing-001",
+  "persona_module": "dir_marketing",
+  "seniority": "director",
+  "department": "marketing",
+  "prospect_input": {
+    "domain": "canvasandcloth.com",
+    "company_name": "Canvas & Cloth",
+    "industry": "home textiles ecommerce",
+    "employee_count": 245,
+    "angles": [
+      {
+        "angle_type": "traffic_decline",
+        "angle_data": {
+          "organic_traffic_change_pct": -19,
+          "period": "last_90_days",
+          "estimated_monthly_sessions": 340000
+        }
+      },
+      {
+        "angle_type": "brand_search_signal",
+        "angle_data": {
+          "branded_search_change_pct": -11,
+          "competitor_branded_growth_pct": 15,
+          "share_of_voice_pct": 8
+        }
+      }
+    ],
+    "contact": {
+      "first_name": "Rachel",
+      "title": "Director of Marketing"
+    }
+  },
+  "assertions": {
+    "tone": "marketing metrics, channel attribution, competitive framing",
+    "word_count_range": [40, 75],
+    "subject_line_max_words": 8,
+    "sequence_length": 5,
+    "must_not_include": ["Dear Sir/Madam", "unsubscribe", "[placeholder]", "click here", "book a meeting", "schedule a call", "limited time", "act now"],
+    "framework": "marketing_metrics",
+    "max_sentences_per_paragraph": 2
+  },
+  "reference_exemplar": null
+}

@@ -1,0 +1,45 @@
+{
+  "case_id": "persona-ic_it-001",
+  "persona_module": "ic_it",
+  "seniority": "ic",
+  "department": "it",
+  "prospect_input": {
+    "domain": "frostpeakapparel.com",
+    "company_name": "Frost Peak Apparel",
+    "industry": "winter clothing ecommerce",
+    "employee_count": 170,
+    "angles": [
+      {
+        "angle_type": "core_web_vitals",
+        "angle_data": {
+          "lcp_ms": 4700,
+          "fid_ms": 240,
+          "cls": 0.29,
+          "mobile_score": 31
+        }
+      },
+      {
+        "angle_type": "tech_stack_signal",
+        "angle_data": {
+          "platform": "Magento 2.4",
+          "known_issues": ["full-page cache misconfigurations", "unindexed catalog queries"],
+          "page_weight_kb": 5300
+        }
+      }
+    ],
+    "contact": {
+      "first_name": "Taylor",
+      "title": "Systems Administrator"
+    }
+  },
+  "assertions": {
+    "tone": "technical, infrastructure-specific, implementation detail",
+    "word_count_range": [45, 100],
+    "subject_line_max_words": 8,
+    "sequence_length": 4,
+    "must_not_include": ["Dear Sir/Madam", "unsubscribe", "[placeholder]", "click here", "book a meeting", "schedule a call", "limited time", "act now"],
+    "framework": "technical_observation",
+    "max_sentences_per_paragraph": 2
+  },
+  "reference_exemplar": null
+}

@@ -1,0 +1,44 @@
+{
+  "case_id": "persona-vp_ecommerce-001",
+  "persona_module": "vp_ecommerce",
+  "seniority": "vp",
+  "department": "ecommerce",
+  "prospect_input": {
+    "domain": "copperridgehome.com",
+    "company_name": "Copper Ridge Home Goods",
+    "industry": "home furnishings ecommerce",
+    "employee_count": 340,
+    "angles": [
+      {
+        "angle_type": "conversion_rate_decline",
+        "angle_data": {
+          "current_cvr_pct": 1.7,
+          "industry_avg_cvr_pct": 3.1,
+          "estimated_monthly_revenue_loss_usd": 218000
+        }
+      },
+      {
+        "angle_type": "cart_abandonment",
+        "angle_data": {
+          "abandonment_rate_pct": 82,
+          "industry_avg_pct": 70,
+          "estimated_monthly_abandoned_usd": 1250000
+        }
+      }
+    ],
+    "contact": {
+      "first_name": "Jenna",
+      "title": "VP of Ecommerce"
+    }
+  },
+  "assertions": {
+    "tone": "data-led, operational, owns conversion and cart metrics",
+    "word_count_range": [35, 65],
+    "subject_line_max_words": 8,
+    "sequence_length": 5,
+    "must_not_include": ["Dear Sir/Madam", "unsubscribe", "[placeholder]", "click here", "book a meeting", "schedule a call", "limited time", "act now"],
+    "framework": "data_led_operational",
+    "max_sentences_per_paragraph": 2
+  },
+  "reference_exemplar": null
+}

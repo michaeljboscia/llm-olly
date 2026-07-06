@@ -1,0 +1,47 @@
+{
+  "case_id": "persona-ic_marketing-001",
+  "persona_module": "ic_marketing",
+  "seniority": "ic",
+  "department": "marketing",
+  "prospect_input": {
+    "domain": "sunstoneaccessories.com",
+    "company_name": "Sunstone Accessories",
+    "industry": "jewelry and accessories ecommerce",
+    "employee_count": 145,
+    "angles": [
+      {
+        "angle_type": "paid_media_signal",
+        "angle_data": {
+          "cpc_usd": 2.40,
+          "industry_avg_cpc_usd": 1.60,
+          "ctr_pct": 1.1,
+          "industry_avg_ctr_pct": 2.3,
+          "roas": 2.8,
+          "industry_avg_roas": 4.5
+        }
+      },
+      {
+        "angle_type": "traffic_decline",
+        "angle_data": {
+          "organic_traffic_change_pct": -15,
+          "period": "last_90_days",
+          "estimated_monthly_sessions": 195000
+        }
+      }
+    ],
+    "contact": {
+      "first_name": "Brianna",
+      "title": "Digital Marketing Specialist"
+    }
+  },
+  "assertions": {
+    "tone": "tactical metrics, CTR/CPC/ROAS fluent, execution-level",
+    "word_count_range": [45, 100],
+    "subject_line_max_words": 8,
+    "sequence_length": 5,
+    "must_not_include": ["Dear Sir/Madam", "unsubscribe", "[placeholder]", "click here", "book a meeting", "schedule a call", "limited time", "act now"],
+    "framework": "tactical_metrics",
+    "max_sentences_per_paragraph": 2
+  },
+  "reference_exemplar": null
+}

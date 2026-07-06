@@ -1,0 +1,45 @@
+{
+  "case_id": "persona-dir_ecommerce-001",
+  "persona_module": "dir_ecommerce",
+  "seniority": "director",
+  "department": "ecommerce",
+  "prospect_input": {
+    "domain": "steelcanyonoutfitters.com",
+    "company_name": "Steel Canyon Outfitters",
+    "industry": "outdoor apparel ecommerce",
+    "employee_count": 380,
+    "angles": [
+      {
+        "angle_type": "conversion_rate_decline",
+        "angle_data": {
+          "current_cvr_pct": 1.3,
+          "industry_avg_cvr_pct": 2.9,
+          "estimated_monthly_revenue_loss_usd": 274000
+        }
+      },
+      {
+        "angle_type": "core_web_vitals",
+        "angle_data": {
+          "lcp_ms": 4500,
+          "fid_ms": 220,
+          "cls": 0.26,
+          "mobile_score": 35
+        }
+      }
+    ],
+    "contact": {
+      "first_name": "Tomas",
+      "title": "Director of Ecommerce"
+    }
+  },
+  "assertions": {
+    "tone": "direct, operational, detail-tolerant, metric-specific",
+    "word_count_range": [40, 75],
+    "subject_line_max_words": 8,
+    "sequence_length": 5,
+    "must_not_include": ["Dear Sir/Madam", "unsubscribe", "[placeholder]", "click here", "book a meeting", "schedule a call", "limited time", "act now"],
+    "framework": "operational_direct",
+    "max_sentences_per_paragraph": 2
+  },
+  "reference_exemplar": null
+}
