@@ -41,7 +41,7 @@ That's a distributed-systems problem disguised as a feelings problem. llm-olly w
 | `prefect/` | Orchestration flows: daily heartbeat, weekly drift report, and a **model-change trigger** that fires the full canary suite when your provider moves the ground under you |
 | `schema/` | Supabase/Postgres migrations for the monitoring tables (`canary_runs`, `canary_results`, `experiments`, `prompt_versions`, …) |
 
-Treat every healthy pipeline as a machine spirit worth keeping happy — and every silent regression as corruption that got in while you weren't watching. This is how you watch.
+A healthy pipeline stays healthy right up until something quietly regresses while you're not looking. This is how you look.
 
 ## The best trick in here (and it's free)
 
@@ -61,4 +61,4 @@ Langfuse v3 (Postgres + ClickHouse + Redis + MinIO) · Promptfoo · Prefect · S
 
 ---
 
-*Observability: knowing your LLM is wrong before your users do. By the Omnissiah, it traces.*
+*Observability: knowing your LLM is wrong before your users do.*
