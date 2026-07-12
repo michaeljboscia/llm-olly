@@ -10,7 +10,7 @@
 
 Your LLM feature works. Probably. You changed the prompt last Tuesday and it *feels* better. Cost is... some number? Quality is... vibes? And when the model provider silently ships a new version, you'll find out from an angry user, not a dashboard.
 
-That's a distributed-systems problem disguised as a feelings problem. llm-olly wires up the three things you actually need — **tracing, pre-deploy evaluation, and drift detection** — into one Docker-deployable stack you own end to end. No per-token SaaS pricing, no shipping your prompts to someone else's cloud.
+That's a distributed-systems problem disguised as a feelings problem. llm-olly wires up the three things you actually need (**tracing, pre-deploy evaluation, and drift detection**) into one Docker-deployable stack you own end to end. No per-token SaaS pricing, no shipping your prompts to someone else's cloud.
 
 ## The three pillars
 
@@ -35,8 +35,8 @@ That's a distributed-systems problem disguised as a feelings problem. llm-olly w
 | Directory | What's inside |
 |---|---|
 | `langfuse/` | Docker Compose + env template + deploy docs for **Langfuse v3** (traces every call: tokens, cost, latency, prompt-version tracking, cache hit/miss, LLM-as-judge auto-eval, human approval scores) |
-| `promptfoo/` | Docker Compose + eval configs + assertion scripts — a **persona × payload test matrix** with deterministic checks (word count, banned CTAs, data accuracy) *and* model-as-judge rubrics (persona fidelity, tone, anti-patterns) |
-| `canary/` | 44–66 canary fixtures + scoring rubrics — the smoke test you run every day so drift can't sneak up on you |
+| `promptfoo/` | Docker Compose + eval configs + assertion scripts: a **persona × payload test matrix** with deterministic checks (word count, banned CTAs, data accuracy) *and* model-as-judge rubrics (persona fidelity, tone, anti-patterns) |
+| `canary/` | 44-66 canary fixtures + scoring rubrics: the smoke test you run every day so drift can't sneak up on you |
 | `bridge/` | Promptfoo → Langfuse bridge, so eval results land in the same place as production traces |
 | `prefect/` | Orchestration flows: daily heartbeat, weekly drift report, and a **model-change trigger** that fires the full canary suite when your provider moves the ground under you |
 | `schema/` | Supabase/Postgres migrations for the monitoring tables (`canary_runs`, `canary_results`, `experiments`, `prompt_versions`, …) |
@@ -49,7 +49,7 @@ From the research baked into this repo (`research/DR-04`): **edit-distance track
 
 ## What you get out of it
 
-- **Before deploy:** "Did my prompt change make things better, or just different?" — answered by Promptfoo, not by feel.
+- **Before deploy:** "Did my prompt change make things better, or just different?" Answered by Promptfoo, not by feel.
 - **In production:** every call traced, costed, and scored in Langfuse.
 - **Over time:** drift reports and a canary that screams the day the model's behavior shifts under you.
 
@@ -57,7 +57,7 @@ From the research baked into this repo (`research/DR-04`): **edit-distance track
 
 Langfuse v3 (Postgres + ClickHouse + Redis + MinIO) · Promptfoo · Prefect · Supabase/Postgres · all Docker Compose, all yours.
 
-> Deployment defaults point at `localhost` — set your own hosts/ports in the env templates. See `CLAUDE.md` for the full architecture and `langfuse/`, `promptfoo/` for the compose files.
+> Deployment defaults point at `localhost`. Set your own hosts/ports in the env templates. See `CLAUDE.md` for the full architecture and `langfuse/`, `promptfoo/` for the compose files.
 
 ---
 
